@@ -2,7 +2,7 @@
 
 ## 🔨 What does it do?
 
-This is just a simple script intended to download the latest prebuilt binary from [this amazing project](https://github.com/Eloston/ungoogled-chromium) and install it.
+This is just a simple script intended to download the latest prebuilt binary from [this amazing project](https://github.com/ungoogled-software/ungoogled-chromium-binaries) and install it.
 
 ## ❓ What's the point of this?
 
