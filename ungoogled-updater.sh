@@ -11,12 +11,8 @@ RED=$'\e[1;31m'
 
 set -e # Yes yes, I know this isn't a best practice
 
-
-onexit() {
-  echo ":: $RED""Installaton Failed!$RESET"
-}
-
-trap onexit EXIT
+trap 'last_command=$current_command; current_command=$BASH_COMMAND' DEBUG
+trap 'echo "\"${last_command}\" command filed with exit code $?."' EXIT
 
 # Constants
 
