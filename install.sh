@@ -2,11 +2,20 @@
 
 # Error Handling
 
+onexit() {
+  if [ "$?" == "0" ]; then
+    echo "::$GREEN Done!$RESET" 
+  else
+    echo "::$RED Installaton failed!$RESET"
+  fi
+}
+
+
 set -e
 
 trap 'last_command=$current_command; current_command=$BASH_COMMAND' DEBUG
 
-trap 'echo "\"${last_command}\" command filed with exit code $?."' EXIT
+trap onexit EXIT
 
 # Colors
 
@@ -22,6 +31,18 @@ BIN="$LOCAL/bin"
 SCRIPTURL="https://raw.githubusercontent.com/Zaedus/ungoogled-updater/master/ungoogled-updater.sh"
 DEFAULTSCRIPTNAME="update-ungoogled"
 
+# Ask for confirmation
+
+clear
+
+read -p "$YELLOW::$RESET Do you want to install the updater? [Y/n] " confirmInstall
+
+if [ "${confirmInstall,,}" == "y" ] || [ -z $confirmInstall ]; then
+  echo "$YELLOW::$RESET Starting installer..."
+else
+  echo "$YELLOW::$RESET Canceling..."
+fi
+
 # Check if the local bin exists
 
 if [ ! -d "$HOME/.local/bin" ]; then
@@ -32,8 +53,7 @@ if [ ! -d "$HOME/.local/bin" ]; then
 fi
 
 # Ask for custom script name
-
-read -p "What do you want the script name to be? [$DEFAULTSCRIPTNAME] " NAME
+read -p " What do you want the script name to be? [$DEFAULTSCRIPTNAME] " NAME
 
 # If the user didn't input anything, then 
 if [ -z "$NAME" ]; then
@@ -44,4 +64,3 @@ echo "$YELLOW::$RESET Downloading the update script..."
 curl -Lo "$BIN/$NAME" $SCRIPTURL
 echo " Making the script executable..."
 chmod +x "$BIN/$NAME"
-echo "$YELLOW::$RESET" $GREEN"Done!$RESET"
