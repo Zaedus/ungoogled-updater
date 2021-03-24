@@ -22,6 +22,8 @@ BIN="$LOCAL/bin"
 SCRIPTURL="https://raw.githubusercontent.com/Zaedus/ungoogled-updater/master/ungoogled-updater.sh"
 DEFAULTSCRIPTNAME="update-ungoogled"
 
+# Check if the local bin exists
+
 if [ ! -d "$HOME/.local/bin" ]; then
   if [ ! -d "$HOME/.local" ]; then
     mkdir "$HOME/.local"
@@ -29,9 +31,12 @@ if [ ! -d "$HOME/.local/bin" ]; then
   mkdir "$HOME/.local/bin"
 fi
 
+# Ask for custom script name
+
 read -p "What do you want the script name to be? [$DEFAULTSCRIPTNAME] " NAME
 
-if [ "$NAME" == "" ]; then
+# If the user didn't input anything, then 
+if [ -z "$NAME" ]; then
   echo "default"
   NAME="$DEFAULTSCRIPTNAME"
 fi
