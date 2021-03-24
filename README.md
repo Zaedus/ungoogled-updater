@@ -12,7 +12,11 @@ yay -S bash curl html-xml-utils
 
 ## Installation
 
-> Work in Progress (like within an hour or so)
+```
+curl -o- https://raw.githubusercontent.com/Zaedus/ungoogled-updater/master/install.sh | bash
+```
+
+**OR**, if you're not lazy like me, you can download the script called `ungoogled-updater`, and put it wherever you want.
 
 ## FAQs
 
