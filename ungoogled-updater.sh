@@ -6,13 +6,23 @@ YELLOW=$'\e[1;33m'
 RESET=$'\e[0m'
 RED=$'\e[1;31m'
 
-
 # Error Handling
 
-set -e # Yes yes, I know this isn't a best practice
+onexit() {
+  if [ "$?" == "0" ]; then
+    echo "::$GREEN Done!$RESET"
+  else
+    echo "::$RED Installaton failed!$RESET"
+  fi
+}
+
+
+set -e
 
 trap 'last_command=$current_command; current_command=$BASH_COMMAND' DEBUG
-trap 'echo "\"${last_command}\" command filed with exit code $?."' EXIT
+
+trap onexit EXIT
+
 
 # Constants
 
@@ -41,4 +51,4 @@ echo " Successfully downloaded to '$DOWNLOADPATH'."
 echo "$YELLOW::$RESET Installing package..."
 sudo pacman -U $DOWNLOADPATH
 
-echo "$YELLOW::$RESET Successfully installed the latest version of Ungoogled Chromium!"
+
