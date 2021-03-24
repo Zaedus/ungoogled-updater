@@ -37,7 +37,6 @@ read -p "What do you want the script name to be? [$DEFAULTSCRIPTNAME] " NAME
 
 # If the user didn't input anything, then 
 if [ -z "$NAME" ]; then
-  echo "default"
   NAME="$DEFAULTSCRIPTNAME"
 fi
 
